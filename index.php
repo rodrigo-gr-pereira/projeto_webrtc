@@ -56,7 +56,7 @@
 
         const roomHash = location.hash.substring(1);
 
-        const drone = new ScaleDrone('ONfWYbSho4zunaa8');
+        const drone = new ScaleDrone('yiS12Ts5RdNhebyM');
 
         const roomName = 'observable-'+roomHash;
 
@@ -69,6 +69,34 @@
             ]
         }
 
+        let room;
+        let pc;
+
+        let number = 0;
+
+        function OnSucess(){};
+
+        function onError(error){
+            console.log(error);
+        };
+
+        drone.on('open', error => {
+            if(error)
+                return console.log(error);
+
+            room = drone.subscribe(roomName);
+
+            room.on('open', error=>{
+                //se acontecer erro, capturamos aqui!
+            });
+
+            room.on('members', members=>{
+                console.log("Conectado!");
+
+                console.log("Conexões abertas: "+ members.length);
+            })
+            
+        });
     </script>
 </body>
 </html>
